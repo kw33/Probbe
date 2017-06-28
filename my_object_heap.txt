@@ -20,3 +20,15 @@ ElAddr
 ElLen
 ...
 ---------------------------------
+; считаем размер битполя
+mov eax,1
+shl eax,BITGRAN + 3 ; учтя 8бит
+; в байте поля eax байт данных
+mov ecx,[HeapSize]
+idiv ecx,eax; округлено в меньшую
+mov [BitfieldSize],ecx
+;mov ecx,[HeapSize]
+imul ecx,eax
+mov [DataSize],ecx
+; начало данных
+; HeapBegin + HeapSize - DataSize
