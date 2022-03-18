@@ -17,23 +17,38 @@
   которые тоже загружаются.
 
 \\\\\\\\\\\\\\
-массив данных для окна
+Window - массив данных для окна
 Controls - куча
 Controls.Max ??
-Controls.Count
+Controls.Count - функция ..?
 Controls.List - массив ссылок на ЭУ
-ControlSize - массив размеров структур станд.ЭУ
- - массив адресов обработчиков событий станд.ЭУ ??
- - ссылка на ЭУ, над которым был курсор в прошлый раз
+Controls.Sizes - массив размеров структур станд.ЭУ
+Controls.Handlers - массив адресов обработчиков событий станд.ЭУ ??
+   или
+   Controls.Draw - массив адресов обработчиков событий Draw станд.ЭУ ??
+   Controls.Key  - массив адресов обработчиков событий Key станд.ЭУ ??
+   Controls.Mouse- массив адресов обработчиков событий Mouse станд.ЭУ ??
+Controls.Last - ссылка на ЭУ, над которым был курсор в прошлый раз
  - 
 
-///////////
+
+
+///////////\////\///\///\///\//\///\///\///\//\////\///\//\///\//
 ф-ция диспетчер событий для ЭУ. ( для окна - отдельно ?? )
-Dispatch (msg) {
+Dispatch (sysmsg) {
+  преобразование sysmsg...> msg
+  mcall 37, ..   ; SF_MOUSE_GET
+                   SSF_WINDOW_POSITION (1)
+                   SSF_BUTTON (2)
+                   SSF_BUTTON_EXT (3)
+                   SSF_SET_CURSOR (5)
+                   SSF_SCROLL_DATA (7)
+  
   if (msg==MSG_MOVE) {
     foreach backward (ctrl in Controls) {
       if (CursorIsOverControl(ctrl) {
         SendMessage(msg,ctrl);
+        // в SendMessage определяется обработчик (std/custom)
         return;
       }
     }
@@ -43,5 +58,27 @@ Dispatch (msg) {
     foreach (ctrl in Controls) {
     
 
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ Events
+MSG_MOVE / X, Y
+MSG_CLICK / No of button
+MSG_SCROLL / dX, dY
+MSG_HOVER / In/Out
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ msg
+.Event dd ? ; MSG_...
+.A dd ?
+.B dd ?
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+SendMessage(msg, ctrl)
+если ctrl.Handler не NULL, то он вызывается.
+иначе вызывается стд.обработчик по соотв-щему событию.
+
+
+============================================== ЭУ
+Type
+X, Y, dX, dY
+Prop
+Handler
 
     
