@@ -73,6 +73,7 @@ proc CreateHeap size
 	ret
 
   .error:
+	; CF = 1
 	ud2 ;                                             ? ? ? TO DO
 endp
 
