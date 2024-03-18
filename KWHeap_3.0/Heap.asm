@@ -30,14 +30,14 @@ EXPORTS:
 	dd szHeapAlloc,  MemAlloc     ; ord 1
 	dd szHeapReAlloc,MemReAlloc   ; ord 2
 	dd szHeapFree,	 MemFree      ; ord 3
-    ;    dd szHeapPut,    KWHeapPut      ; ord 4
-    ;    dd szHeapDelete, KWHeapDelete   ; ord 5
+	dd szHeapPut,	 MemPut       ; ord 4
+    ;    dd szHeapDelete, MemDelete    ; ord 5
 	dd	   0,	 0
 
 szHeapCreate  db 'HeapCreate',0
 szHeapAlloc   db 'HeapAlloc',0
 szHeapReAlloc db 'HeapReAlloc',0
 szHeapFree    db 'HeapFree',0
-;szHeapPut     db 'HeapPut',0
+szHeapPut     db 'HeapPut',0
 ;szHeapDelete  db 'HeapDelete',0
 
